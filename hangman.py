@@ -32,7 +32,7 @@ import random
 # A function to change the board (add body parts) whenever the user guesses incorrectly.
 # input = number of incorrect guesses (n)
 # output = board
-def board (n):
+def board (n) -> None:
     # 0 mistakes
     if (n == 0):
         print ("  ______ \n |      |\n        |\n        |\n        |\n        |\n _______|______")
@@ -64,25 +64,42 @@ def board (n):
 
 # function to check if the user's guess is valid
 def guess_valid(user_guess) -> bool:
-    if "a" <= user_guess.lower() <= "z":
+    user_guess = user_guess.lower()
+    if "a" <= user_guess <= "z":
         return True
     else:
         return False
 
+
+# function to fill in the blanks based on the random word
+def blanks(random_word) -> None:
+    length = len(random_word)
+    dashes = []
+
+    for i in range(length):
+        # add blanks to an array to keep track of it's position
+        dashes.append("__")
+    
+    print(dashes)
 
 ######## Main ########
 # Pick a random word
 with open("words.txt") as word_file:
     words = word_file.read().split()
     
-random_word = random.choice(words)
-mistakes = 6
+random_word = random.choice(words).lower()
+mistakes = 0
 
+print("The word is: " + random_word)
+board(mistakes)
+print("\n")
+blanks(random_word)
+print("\n")
 
 # user's input
 user_guess = input ("Guess a letter: ")
-user_guess.lower()
 
 while (guess_valid(user_guess) is False):
     user_guess = input ("Guess a valid letter: ")
+
 
