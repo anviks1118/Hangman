@@ -1,4 +1,6 @@
-arr = ["a", "n", "v", "i", "t", "a"]
+random_word = "HOES MAD"
 
-for i in range (len(arr)):
-    print (arr[i])
+print("=============================================")
+print("            Game over... womp womp\n")
+print ("The word was", random_word.upper())
+print("=============================================\n")

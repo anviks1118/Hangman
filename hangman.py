@@ -7,7 +7,7 @@ Users guess the word. We give and validate the letters they give.
 - √ we need to give a random word for the user: 
     - √ store a list of possible words (in a text file) 
     - √ select a word from the text file randomly 
-- check the user's guess:
+- √ check the user's guess:
     - √ if the letter is in the word and hasn't been guessed: 
         - √ fill in the blank with the letter 
         - √ write down: "Correct letter!" 
@@ -15,15 +15,15 @@ Users guess the word. We give and validate the letters they give.
         - √ write down: "Sorry, incorrect letter!" 
         - √ add a body part
     - if the letter is already guessed:
-        - let users know the letter is already guessed (have it continuously display at the top):
-        - at the top, mark which letters have been incorrectly guessed *
+        - √ let users know the letter is already guessed (have it continuously display at the top):
+        - √ at the top, mark which letters have been incorrectly guessed 
         - √ notify the user if a letter has already been guessed (string) 
 - √ draw the body parts individually once the user gets a letter incorrect 
-- let the user know if they won or lost:
+- √ let the user know if they won or lost:
     - √ Win: when they guess the word (fill in all the blanks) 
     - √ Lose: when they use all the body parts (order: head, body (stick), left arm, right arm, left leg, right leg) 
     - √ Guess one letter at a time 
-    - Show which letters have been guessed 
+    - √ Show which letters have been guessed 
     - √ Reveal the final word after a fail attempt of the user guessing the word 
 Users
 - √ guess a random letter 
@@ -86,10 +86,11 @@ def blanks(random_word) -> list:
 
 ######## Main ########
 # Introduction
-print("===== Welcome to Hangman! =====")
-print("You only have 6 valid tries to guess the word. You can only guess english letters.")
-print("Good luck!")
-print("===============================")
+print("\n============ Welcome to Hangman! ============\n")
+print("- You have 6 valid tries to guess the word.")
+print("- You can only guess english letters.\n")
+print("                 Good luck!")
+print("=============================================\n")
 
 # Pick a random word
 with open("words.txt") as word_file:
@@ -98,7 +99,7 @@ with open("words.txt") as word_file:
 random_word = random.choice(words).lower()
 mistakes = 0
 
-print("The word is: " + random_word)
+# print("The word is: " + random_word)
 dashes = blanks(random_word)
 
 guessed_letters = []
@@ -106,17 +107,17 @@ guessed_letters = []
 # Main gameplay
 count = 0
 while (mistakes < 6):
-    print("===============================")
     if ((6 - mistakes) == 0) or ("__" not in dashes):
         break
     else:
+        print("=============================================")
         print("You have", (6 - mistakes), "tries left.")
         board(mistakes)
         print("\n")
         print(dashes)
     
     # Show the letters the user guessed
-    print("Letters guessed:", guessed_letters.sort())
+    print("Letters guessed:", guessed_letters)
     
     # User's input
     user_guess = input ("Guess a letter: ")
@@ -126,7 +127,7 @@ while (mistakes < 6):
     
     # If user already guessed letter
     while user_guess in guessed_letters:
-        print("You already guessed this letter! Try another one.")
+        print("\nYou already guessed this letter! Try another one.\n")
         user_guess = input ("Guess a letter: ")
 
         while (guess_valid(user_guess) is False):
@@ -138,25 +139,29 @@ while (mistakes < 6):
     for i in range (len(dashes)):
         if user_guess == random_word[i]:
             dashes[i] = user_guess
-            count += 1 
-    
+            count += 1
+            
+    print("=============================================")
     if (count == 0):
         mistakes += 1
-        print("This letter is not in the word.")
+        print("           ", user_guess.upper(), "is not in the word.")
     else:
-        print("This letter is in the word!")
+        print("             ", user_guess.upper(), "is in the word!")
     
     count = 0
 
 # Game over
-print("===============================")
+print("=============================================")
 board(mistakes)
 print("\n")
 print(dashes)
 
+print("\n=============================================")
 if (mistakes == 6):
-    print("Game over... womp womp")
+    print("            Game over... womp womp\n")
     print ("The word was", random_word.upper())
 
 elif (mistakes < 6) and ("__" not in dashes):
-    print("You guessed the word!")
+    print("            You guessed the word!")
+
+print("=============================================\n")
