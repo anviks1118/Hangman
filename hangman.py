@@ -111,10 +111,15 @@ while (mistakes < 6):
         break
     else:
         print("=============================================")
-        print("You have", (6 - mistakes), "tries left.")
+        if ((6 - mistakes) == 1):
+            print("You have 1 try left.")
+        else:    
+            print("You have", (6 - mistakes), "tries left.")
+            
         board(mistakes)
         print("\n")
         print(dashes)
+        
     
     # Show the letters the user guessed
     print("Letters guessed:", guessed_letters)
